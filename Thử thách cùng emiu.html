@@ -1,0 +1,468 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   30 Days Couple Challenge
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&amp;family=Pacifico&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Montserrat', sans-serif;
+      background: #fff0f6;
+      color: #4b2a4a;
+    }
+    h1, h2, h3 {
+      font-family: 'Pacifico', cursive;
+    }
+    /* Scrollbar for progress bar container */
+    #days-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    #days-container::-webkit-scrollbar-track {
+      background: #fce4ec;
+      border-radius: 10px;
+    }
+    #days-container::-webkit-scrollbar-thumb {
+      background: #d6336c;
+      border-radius: 10px;
+    }
+  </style>
+ </head>
+ <body class="min-h-screen flex flex-col">
+  <header class="bg-pink-200 shadow-md sticky top-0 z-50">
+   <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+     <img alt="Heart icon in pink color symbolizing love" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/38a711ac-1216-4f74-a628-03dc68802139.jpg" width="48"/>
+     <h1 class="text-3xl text-pink-700 select-none">
+      30 Days Couple Challenge
+     </h1>
+    </div>
+    <nav class="hidden md:flex space-x-6 text-pink-700 font-semibold">
+     <a class="hover:text-pink-900 transition" href="#progress">
+      Progress
+     </a>
+     <a class="hover:text-pink-900 transition" href="#days">
+      Days
+     </a>
+     <a class="hover:text-pink-900 transition" href="#about">
+      About
+     </a>
+    </nav>
+    <button aria-label="Toggle menu" class="md:hidden text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500" id="menu-btn">
+     <i class="fas fa-bars fa-lg">
+     </i>
+    </button>
+   </div>
+   <nav class="hidden md:hidden bg-pink-100 text-pink-700 font-semibold px-4 pb-4 space-y-2" id="mobile-menu">
+    <a class="block hover:text-pink-900 transition" href="#progress">
+     Progress
+    </a>
+    <a class="block hover:text-pink-900 transition" href="#days">
+     Days
+    </a>
+    <a class="block hover:text-pink-900 transition" href="#about">
+     About
+    </a>
+   </nav>
+  </header>
+  <main class="flex-grow max-w-5xl mx-auto px-4 py-8">
+   <section class="mb-10" id="progress">
+    <h2 class="text-4xl text-pink-700 mb-4 text-center select-none">
+     Your Progress
+    </h2>
+    <div class="w-full bg-pink-100 rounded-full h-8 overflow-hidden shadow-inner">
+     <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="h-8 bg-gradient-to-r from-pink-400 via-purple-400 to-pink-500 transition-all duration-500 ease-in-out" id="progress-bar" role="progressbar" style="width: 0%">
+     </div>
+    </div>
+    <p class="mt-2 text-center text-pink-700 font-semibold select-none" id="progress-text">
+     0% Completed
+    </p>
+   </section>
+   <section class="mb-16" id="days">
+    <h2 class="text-4xl text-pink-700 mb-6 text-center select-none">
+     30 Days Challenge
+    </h2>
+    <div aria-label="List of 30 days couple challenge tasks" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-h-[75vh] overflow-y-auto pr-2" id="days-container">
+     <!-- Day cards inserted by JS -->
+    </div>
+   </section>
+   <section class="bg-pink-50 rounded-lg p-6 shadow-lg max-w-3xl mx-auto text-pink-700 select-none" id="about">
+    <h2 class="text-3xl mb-4 text-center font-semibold">
+     About the Challenge
+    </h2>
+    <p class="mb-3 leading-relaxed">
+     The 30 Days Couple Challenge is designed to bring couples closer through daily
+        interactive tasks that build intimacy, communication, and fun. Each day features a
+        unique theme and activity to explore together, fostering connection and growth.
+    </p>
+    <p class="leading-relaxed">
+     Your progress is saved locally, so you can come back anytime and continue your journey.
+        Enjoy the challenge and celebrate your love every day!
+    </p>
+   </section>
+  </main>
+  <footer class="bg-pink-200 text-pink-700 py-6 mt-auto text-center select-none">
+   <p>
+    © 2024 30 Days Couple Challenge
+    <i class="fas fa-heart text-pink-600 animate-pulse">
+    </i>
+   </p>
+  </footer>
+  <script>
+   // Toggle mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Data for 30 days with content as provided
+    const daysData = [
+      {
+        day: 1,
+        title: 'The Awakening Duet',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Cùng quay phim về bản thân "first day of our new life" ( call cho nhau và record màn hình lại những lúc như (routine buổi sáng - làm việc - ăn uống - workout ) ngoài những lúc đó ra thì mình sẽ quay 1 mình. Mình có thể ghép source lại của nhau vdu như vid tỉ lệ khung hình là 16:9 thì mình sẽ chia nửa cái màn hình đó ra nửa bên trái của em nửa bên phải của anh một vài scene, Giới thiệu về challenge Viết chung manifest Sync alarm: cùng dậy sớm, gửi nhau ảnh sunrise đầu tiên cho nhau rồi daily life.',
+      },
+      {
+        day: 2,
+        title: 'Mindful Moments - Khoảnh khắc chánh niệm',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Cùng thử 10-minute meditation app (Headspace/Calm) Share feelings afterwards - không judgment Evening reflection: "What did you notice about your mind today?" Share screen meditation/yoga session Cùng thử skincare routine do người kia suggest',
+      },
+      {
+        day: 3,
+        title: 'Style Sync Revolution - Cách mạng phong cách đồng bộ',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Chọn theme color/style cho nhau Video call fashion show: thử đồ theo gợi ý của người yêu Tạo couple mood board cho style mới',
+      },
+      {
+        day: 4,
+        title: 'Skill Swap Session - Trao đổi kỹ năng',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Teach practical skills: Excel tricks, Photoshop basics, cooking tips 30-minute focused learning session qua screen share Homework: practice và report back tomorrow',
+      },
+      {
+        day: 5,
+        title: 'Book Club for Two - Câu lạc bộ sách hai người',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Choose 1 article/short story to read together Video call discussion: insights, favorite quotes, disagreements Rate và recommend books to each other',
+      },
+      {
+        day: 6,
+        title: 'Sweat Together - Đổ mồ hôi cùng nhau',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Cùng workout qua video call, tạo playlist chung Partner motivation: đếm số cho nhau, cheer up Post-workout selfie together qua screenshot',
+      },
+      {
+        day: 7,
+        title: 'Wellnessday',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Research và try 1 wellness trend: stretching, breathing techniques Share health tips you\'ve learned Plan healthy meal prep together',
+      },
+      {
+        day: 8,
+        title: 'Weekly Synthesis - Tổng hợp tuần',
+        phase: 'PHASE I: FOUNDATION BUILDING.',
+        content:
+          'Review what you learned about each other Identify 3 things you want to explore deeper Plan learning goals for next week Cùng edit video montage tuần 1 trên CapCut/Canva Share screen: cùng chọn nhạc, transition, effect Premiere night: cùng xem tác phẩm chung và react',
+      },
+      {
+        day: 9,
+        title: 'Financial Literacy Date - Hẹn hò học tài chính',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Share 1 money management tip/app you use Discuss financial goals (không pressure, chỉ sharing) Try budgeting app together or investment basics',
+      },
+      {
+        day: 10,
+        title: 'Love Language Live - Ngôn ngữ tình yêu trực tiếp',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Mỗi người demonstrate love language cho nhau qua video Real-time reaction: người nhận express cảm xúc Create "love menu": list cách thể hiện yêu thương',
+      },
+      {
+        day: 11,
+        title: 'Dream Architects Meeting - Cuộc họp kiến trúc sư giấc mơ',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Video call planning session: vẽ vision board cho couple goals Share screen trên Miro/Figma: cùng design future Vote và negotiate: chọn top 10 goals ưu tiên',
+      },
+      {
+        day: 12,
+        title: 'Productivity Partners - Đối tác năng suất',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Co-working session: work/study together qua video Share productivity techniques: Pomodoro, time-blocking End-of-day check-in: "What felt most satisfying today?"',
+      },
+      {
+        day: 13,
+        title: 'Professor & Student - Thầy và trò',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Mỗi người làm "professor" dạy về passion của mình Q&A session: student hỏi, professor answer Role switch: đổi vai trong cùng một call',
+      },
+      {
+        day: 14,
+        title: 'Cultural Exchange - Trao đổi văn hóa QB - HUẾ',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Share 1 cultural tradition/holiday from your background Từ điển tiếng QB - HUẾ Discuss: "What traditions do you want to keep/create?"',
+      },
+      {
+        day: 15,
+        title: 'Tech Exploration - Khám phá công nghệ',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Explore 1 new app/tool together Set up shared workspace or project Challenge: Hướng dẫn mọi người dùng app hoặc tools đó.',
+      },
+      {
+        day: 16,
+        title: 'Transformation Reveal - Công bố biến đổi',
+        phase: 'PHASE II: INTELLECTUAL INTIMACY',
+        content:
+          'Video call reveal: show off changes sau 16 ngày Partner reaction recording: genuine surprise và praise Together planning: next phase goals',
+      },
+      {
+        day: 17,
+        title: 'Business Brainstorm - Động não kinh doanh',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Brainstorm business/side hustle ideas Market research together: validate ideas online Create simple business plan for fun idea rùi trình bày cho đối phương',
+      },
+      {
+        day: 18,
+        title: 'Content Creation 101 - Tạo nội dung cơ bản',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Learn basic video editing together (CapCut/InShot) Create mini tutorial về skill you\'re good at Give each other feedback và editing tips',
+      },
+      {
+        day: 19,
+        title: 'Creative Writing - Viết sáng tạo',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Write short story/poem (không sến, more like literary) Share and give constructive feedback Discuss favorite authors và writing styles',
+      },
+      {
+        day: 20,
+        title: 'Design Thinking - Tư duy thiết kế',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Learn UX/UI basics through online course Redesign each other\'s social media profiles Create aesthetic mood board for personal brand',
+      },
+      {
+        day: 21,
+        title: 'Take a certificate course on Hotspot and finish it in a week.',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content: '',
+      },
+      {
+        day: 22,
+        title: 'Choreographed Connection - Kết nối biên đạo',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Learn same dance routine, practice qua video call Sync performance: count together, dance "together" Create TikTok-style split screen dance video',
+      },
+      {
+        day: 23,
+        title: 'Co-screenwriters - Đồng biên kịch',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Video call brainstorm: write your love story script together Assign roles, rehearse scenes Film trailer for "your movie" with both perspectives',
+      },
+      {
+        day: 24,
+        title: 'Show & Tell - Trình bày và chia sẻ',
+        phase: 'PHASE III: CREATIVE COLLABORATION',
+        content:
+          'Mỗi người present 1 skill đã học được trong tuần Partner give feedback và ask questions Cùng plan skill nào muốn develop tiếp',
+      },
+      {
+        day: 25,
+        title: 'Future Us Visualization - Hình dung chúng ta tương lai',
+        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
+        content:
+          'Cùng imagine cuộc sống 2 năm nữa (realistic goals) Share 3 things muốn experience cùng nhau Learn: Goal-setting techniques và vision boarding',
+      },
+      {
+        day: 26,
+        title: 'Love Languages Upgrade - Nâng cấp ngôn ngữ tình yêu',
+        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
+        content:
+          'Retake love language test, compare với kết quả cũ Practice expressing love theo cách partner cần Learn: Active listening techniques',
+      },
+      {
+        day: 27,
+        title: 'Appreciation Audit - Kiểm tra sự trân trọng',
+        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
+        content:
+          'List 10 điều appreciate về nhau (không cliché) Share why these qualities matter to you Learn: Mindfulness techniques để notice good things',
+      },
+      {
+        day: 28,
+        title: 'Adventure Planning - Lên kế hoạch phiêu lưu',
+        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
+        content:
+          'Plan 3 things để làm khi gặp nhau lần tới Research places/activities neither has tried Learn: Travel planning tools và budgeting',
+      },
+      {
+        day: 29,
+        title: 'Gratitude & Growth - Biết ơn và phát triển',
+        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
+        content:
+          'Share what you\'ve learned about each other Express gratitude cho 28 ngày journey Plan next month\'s couple goals',
+      },
+      {
+        day: 30,
+        title: 'Highlight Reel - Reel nổi bật',
+        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
+        content:
+          'Create short video montage của 30 ngày Include funniest moments và biggest breakthroughs Watch together và laugh about the journey',
+      },
+    ];
+
+    // Load progress from localStorage or initialize
+    let progress = JSON.parse(localStorage.getItem('coupleChallengeProgress')) || {};
+
+    // Elements
+    const daysContainer = document.getElementById('days-container');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+
+    // Create day cards
+    function createDayCard(dayObj) {
+      const card = document.createElement('div');
+      card.className =
+        'bg-white rounded-xl shadow-md p-5 cursor-pointer transform transition-transform hover:scale-[1.03] focus:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-pink-300';
+
+      // Header with day number, phase, and heart icon
+      const header = document.createElement('div');
+      header.className = 'flex items-center justify-between mb-3';
+
+      const dayTitle = document.createElement('h3');
+      dayTitle.className = 'text-xl font-semibold text-pink-700 select-none';
+      dayTitle.textContent = `Day ${dayObj.day}: ${dayObj.title}`;
+
+      const heartIcon = document.createElement('i');
+      heartIcon.className = 'fas fa-heart text-pink-500 text-lg animate-pulse select-none';
+      heartIcon.setAttribute('aria-hidden', 'true');
+
+      header.appendChild(dayTitle);
+      header.appendChild(heartIcon);
+
+      // Phase label
+      const phaseLabel = document.createElement('p');
+      phaseLabel.className =
+        'text-sm text-pink-400 font-semibold mb-3 select-none italic border-b border-pink-200 pb-1';
+      phaseLabel.textContent = dayObj.phase;
+
+      // Content container (hidden by default)
+      const contentContainer = document.createElement('div');
+      contentContainer.className = 'text-pink-700 text-sm leading-relaxed max-h-0 overflow-hidden transition-all duration-500 ease-in-out';
+      contentContainer.setAttribute('aria-hidden', 'true');
+      contentContainer.innerText = dayObj.content;
+
+      // Checkbox container
+      const checkboxContainer = document.createElement('label');
+      checkboxContainer.className =
+        'flex items-center space-x-3 mt-4 cursor-pointer select-none';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className =
+        'w-5 h-5 rounded border-pink-300 text-pink-600 focus:ring-pink-500';
+      checkbox.setAttribute('aria-label', `Mark Day ${dayObj.day} as completed`);
+
+      // Set checkbox state from progress
+      checkbox.checked = !!progress[dayObj.day];
+
+      const checkboxText = document.createElement('span');
+      checkboxText.className = 'text-pink-700 font-medium';
+      checkboxText.textContent = 'Completed';
+
+      checkboxContainer.appendChild(checkbox);
+      checkboxContainer.appendChild(checkboxText);
+
+      // Toggle content on card click except checkbox
+      card.addEventListener('click', (e) => {
+        if (e.target === checkbox) return; // Ignore clicks on checkbox
+        const isExpanded = contentContainer.style.maxHeight && contentContainer.style.maxHeight !== '0px';
+        if (isExpanded) {
+          contentContainer.style.maxHeight = '0px';
+          contentContainer.setAttribute('aria-hidden', 'true');
+          card.setAttribute('aria-expanded', 'false');
+        } else {
+          contentContainer.style.maxHeight = contentContainer.scrollHeight + 'px';
+          contentContainer.setAttribute('aria-hidden', 'false');
+          card.setAttribute('aria-expanded', 'true');
+          // Scroll card into view smoothly on expand
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      // Checkbox change event
+      checkbox.addEventListener('change', (e) => {
+        progress[dayObj.day] = e.target.checked;
+        localStorage.setItem('coupleChallengeProgress', JSON.stringify(progress));
+        updateProgressBar();
+      });
+
+      card.appendChild(header);
+      card.appendChild(phaseLabel);
+      card.appendChild(contentContainer);
+      card.appendChild(checkboxContainer);
+
+      // Accessibility
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-expanded', 'false');
+      card.setAttribute('aria-label', `Day ${dayObj.day}: ${dayObj.title}. Click to expand or collapse details.`);
+
+      // Keyboard accessibility for expand/collapse
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+
+      return card;
+    }
+
+    // Render all day cards
+    function renderDays() {
+      daysContainer.innerHTML = '';
+      daysData.forEach((day) => {
+        const card = createDayCard(day);
+        daysContainer.appendChild(card);
+      });
+    }
+
+    // Update progress bar and text
+    function updateProgressBar() {
+      const total = daysData.length;
+      const completed = Object.values(progress).filter(Boolean).length;
+      const percent = Math.round((completed / total) * 100);
+      progressBar.style.width = percent + '%';
+      progressBar.setAttribute('aria-valuenow', percent);
+      progressText.textContent = `${percent}% Completed`;
+    }
+
+    // Initialize
+    renderDays();
+    updateProgressBar();
+  </script>
+ </body>
+</html>
