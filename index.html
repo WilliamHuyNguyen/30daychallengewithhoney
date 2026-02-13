@@ -1,468 +1,481 @@
-<html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>
-   30 Days Couple Challenge
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&amp;family=Pacifico&amp;display=swap" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIỆM CHỮ PIXEL 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
   <style>
-   body {
-      font-family: 'Montserrat', sans-serif;
-      background: #fff0f6;
-      color: #4b2a4a;
+    :root {
+      --gold: #f0c95c;
+      --red: #9f2f1b;
+      --warm: #f6e6b0;
+      --green: #40643a;
+      --brown: #27170e;
+      --ink: #100803;
+      --panel: rgba(30, 14, 8, 0.78);
+      --panel-alt: rgba(51, 26, 15, 0.9);
+      --outline: #ffd67d;
+      --shadow: #000;
     }
-    h1, h2, h3 {
-      font-family: 'Pacifico', cursive;
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'VT323', monospace;
+      color: var(--warm);
+      background:
+        linear-gradient(rgba(24, 10, 6, 0.35), rgba(24, 10, 6, 0.55)),
+        url('background.jpg') center/cover no-repeat fixed;
+      display: grid;
+      place-items: end center;
+      overflow-x: hidden;
+      image-rendering: pixelated;
     }
-    /* Scrollbar for progress bar container */
-    #days-container::-webkit-scrollbar {
+
+    .scanline::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.02) 0,
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+      z-index: 1;
+    }
+
+    .dialog {
+      position: relative;
+      z-index: 2;
+      width: min(92vw, 950px);
+      margin: 1rem;
+      background: var(--panel);
+      border: 4px solid var(--outline);
+      box-shadow:
+        0 0 0 4px var(--ink),
+        0 0 0 8px var(--red),
+        0 12px 0 0 var(--shadow);
+      padding: 1rem 1.2rem 1.2rem;
+      animation: floatDialog 2.2s ease-in-out infinite;
+      backdrop-filter: blur(2px);
+    }
+
+    @keyframes floatDialog {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .dialog h1 {
+      margin: 0 0 0.6rem;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      letter-spacing: 1px;
+      color: var(--gold);
+      text-shadow: 2px 2px 0 var(--brown);
+    }
+
+    .npc-line {
+      margin: 0 0 0.8rem;
+      font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+      color: #ffeec4;
+      min-height: 2.2em;
+    }
+
+    .input-wrap {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 0.6rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 220px;
+      font-family: inherit;
+      font-size: clamp(1rem, 2.1vw, 1.4rem);
+      border: 3px solid var(--outline);
+      background: rgba(18, 9, 5, 0.9);
+      color: #fff2c5;
+      padding: 0.55rem 0.7rem;
+      box-shadow: inset 0 0 0 2px var(--ink);
+      outline: none;
+    }
+
+    input::placeholder { color: #d9be7f; }
+
+    .pixel-btn {
+      font-family: inherit;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      background: linear-gradient(#e4b64f, #b77a24);
+      color: #2f160a;
+      border: 3px solid #ffe3a3;
+      box-shadow: 0 0 0 3px var(--ink), 0 5px 0 0 #522f0f;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: transform 120ms ease, filter 120ms ease;
+    }
+
+    .pixel-btn:hover { filter: brightness(1.05); }
+    .pixel-btn:active { transform: translateY(2px); box-shadow: 0 0 0 3px var(--ink), 0 3px 0 0 #522f0f; }
+
+    .hidden { display: none !important; }
+
+    .loading {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: clamp(1.15rem, 2.3vw, 1.6rem);
+    }
+
+    .dot {
+      width: 8px;
       height: 8px;
+      border-radius: 2px;
+      background: var(--gold);
+      animation: blink 1s infinite;
     }
-    #days-container::-webkit-scrollbar-track {
-      background: #fce4ec;
-      border-radius: 10px;
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(-3px); }
     }
-    #days-container::-webkit-scrollbar-thumb {
-      background: #d6336c;
-      border-radius: 10px;
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      background: rgba(0, 0, 0, 0.6);
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+
+    .card {
+      width: min(92vw, 560px);
+      background: var(--panel-alt);
+      border: 4px solid var(--outline);
+      box-shadow: 0 0 0 4px var(--ink), 0 0 0 8px #7a2916, 0 12px 0 #120702;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #ffdc90;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .word {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(3rem, 12vw, 5.8rem);
+      margin: 0.25rem 0 0.1rem;
+      color: #ffe7a8;
+      text-shadow: 3px 3px 0 #5f260f, 0 0 18px rgba(255, 227, 141, 0.35);
+      line-height: 1;
+    }
+
+    .meaning {
+      margin: 0.5rem auto 1rem;
+      max-width: 420px;
+      font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+      color: #fff0ca;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .note {
+      font-size: 1rem;
+      color: #e2c07a;
+      margin-top: 0.65rem;
+      min-height: 1.3em;
+    }
+
+    @media (max-width: 540px) {
+      .dialog { padding: 0.8rem; }
+      .pixel-btn { width: 100%; }
+      .input-wrap { gap: 0.6rem; }
+      input[type='text'] { min-width: 100%; }
     }
   </style>
- </head>
- <body class="min-h-screen flex flex-col">
-  <header class="bg-pink-200 shadow-md sticky top-0 z-50">
-   <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-     <img alt="Heart icon in pink color symbolizing love" class="w-12 h-12" height="48" src="https://storage.googleapis.com/a1aa/image/38a711ac-1216-4f74-a628-03dc68802139.jpg" width="48"/>
-     <h1 class="text-3xl text-pink-700 select-none">
-      30 Days Couple Challenge
-     </h1>
-    </div>
-    <nav class="hidden md:flex space-x-6 text-pink-700 font-semibold">
-     <a class="hover:text-pink-900 transition" href="#progress">
-      Progress
-     </a>
-     <a class="hover:text-pink-900 transition" href="#days">
-      Days
-     </a>
-     <a class="hover:text-pink-900 transition" href="#about">
-      About
-     </a>
-    </nav>
-    <button aria-label="Toggle menu" class="md:hidden text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500" id="menu-btn">
-     <i class="fas fa-bars fa-lg">
-     </i>
-    </button>
-   </div>
-   <nav class="hidden md:hidden bg-pink-100 text-pink-700 font-semibold px-4 pb-4 space-y-2" id="mobile-menu">
-    <a class="block hover:text-pink-900 transition" href="#progress">
-     Progress
-    </a>
-    <a class="block hover:text-pink-900 transition" href="#days">
-     Days
-    </a>
-    <a class="block hover:text-pink-900 transition" href="#about">
-     About
-    </a>
-   </nav>
-  </header>
-  <main class="flex-grow max-w-5xl mx-auto px-4 py-8">
-   <section class="mb-10" id="progress">
-    <h2 class="text-4xl text-pink-700 mb-4 text-center select-none">
-     Your Progress
-    </h2>
-    <div class="w-full bg-pink-100 rounded-full h-8 overflow-hidden shadow-inner">
-     <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="h-8 bg-gradient-to-r from-pink-400 via-purple-400 to-pink-500 transition-all duration-500 ease-in-out" id="progress-bar" role="progressbar" style="width: 0%">
-     </div>
-    </div>
-    <p class="mt-2 text-center text-pink-700 font-semibold select-none" id="progress-text">
-     0% Completed
-    </p>
-   </section>
-   <section class="mb-16" id="days">
-    <h2 class="text-4xl text-pink-700 mb-6 text-center select-none">
-     30 Days Challenge
-    </h2>
-    <div aria-label="List of 30 days couple challenge tasks" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-h-[75vh] overflow-y-auto pr-2" id="days-container">
-     <!-- Day cards inserted by JS -->
-    </div>
-   </section>
-   <section class="bg-pink-50 rounded-lg p-6 shadow-lg max-w-3xl mx-auto text-pink-700 select-none" id="about">
-    <h2 class="text-3xl mb-4 text-center font-semibold">
-     About the Challenge
-    </h2>
-    <p class="mb-3 leading-relaxed">
-     The 30 Days Couple Challenge is designed to bring couples closer through daily
-        interactive tasks that build intimacy, communication, and fun. Each day features a
-        unique theme and activity to explore together, fostering connection and growth.
-    </p>
-    <p class="leading-relaxed">
-     Your progress is saved locally, so you can come back anytime and continue your journey.
-        Enjoy the challenge and celebrate your love every day!
-    </p>
-   </section>
+</head>
+<body class="scanline">
+  <main class="dialog" aria-live="polite">
+    <h1>TIỆM CHỮ PIXEL 2026</h1>
+    <p id="npcText" class="npc-line">Hế lô! Ta là Cyber Đồ. Năm nay muốn phi nước đại hay đi nước kiệu?</p>
+
+    <section id="stepStart">
+      <button class="pixel-btn" id="btnXinChu">XIN CHỮ</button>
+    </section>
+
+    <section id="stepInput" class="hidden">
+      <p class="npc-line" style="min-height:auto; margin-bottom:0.2rem;">Nhập mong muốn năm 2026 của bạn:</p>
+      <div class="input-wrap">
+        <input id="wishInput" type="text" placeholder="Muốn thoát ế, lương x5, sếp bớt dí..." maxlength="140" />
+        <button class="pixel-btn" id="btnSend">GỬI VŨ TRỤ</button>
+      </div>
+    </section>
+
+    <section id="stepLoading" class="hidden">
+      <div class="loading">
+        <span>Đang tải dữ liệu từ vũ trụ</span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </section>
   </main>
-  <footer class="bg-pink-200 text-pink-700 py-6 mt-auto text-center select-none">
-   <p>
-    © 2024 30 Days Couple Challenge
-    <i class="fas fa-heart text-pink-600 animate-pulse">
-    </i>
-   </p>
-  </footer>
+
+  <section id="resultOverlay" class="overlay hidden" aria-modal="true" role="dialog">
+    <div class="card">
+      <h2>Lucky Card</h2>
+      <div id="resultWord" class="word">PHÁT</div>
+      <p id="resultMeaning" class="meaning">Phát lên như pháo, tiền vào ào ào.</p>
+      <div class="card-actions">
+        <button class="pixel-btn" id="btnRetry">CẦU THÊM</button>
+        <button class="pixel-btn" id="btnShare">CHIA SẺ</button>
+      </div>
+      <p id="shareStatus" class="note"></p>
+    </div>
+  </section>
+
   <script>
-   // Toggle mobile menu
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+    // ===== Gemini configuration =====
+    const GEMINI_API_KEY = 'YOUR_KEY_HERE';
+    const GEMINI_MODEL = 'gemini-1.5-flash';
+    const FALLBACK_RESULT = {
+      word: 'LỘC',
+      meaning: 'Lộc tới đầy nhà, code chạy mượt mà.'
+    };
+
+    // ===== UI elements =====
+    const stepStart = document.getElementById('stepStart');
+    const stepInput = document.getElementById('stepInput');
+    const stepLoading = document.getElementById('stepLoading');
+    const resultOverlay = document.getElementById('resultOverlay');
+    const wishInput = document.getElementById('wishInput');
+    const resultWord = document.getElementById('resultWord');
+    const resultMeaning = document.getElementById('resultMeaning');
+    const shareStatus = document.getElementById('shareStatus');
+
+    // ===== Tiny base64 wav sounds (8-bit inspired blips) =====
+    const SOUND_SOURCES = {
+      click: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTAAAAAAAP8AAP8AAAD//wAA//8AAP8AAP8AAAD//wAA',
+      xinchu: 'data:audio/wav;base64,UklGRmQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YUAAAAAAAP8A/wAA//8AAAD//wAAAP8A/wAA//8AAAAAAP//AA==',
+      success: 'data:audio/wav;base64,UklGRnQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVAAAAAA/wAAAP8AAP//AAD//wAAAP8AAP8AAAD//wAA//8AAP8AAP8AAAAA'
+    };
+
+    const sounds = Object.fromEntries(
+      Object.entries(SOUND_SOURCES).map(([k, src]) => {
+        const a = new Audio(src);
+        a.preload = 'auto';
+        a.loop = false;
+        return [k, a];
+      })
+    );
+
+    function playSound(name) {
+      const s = sounds[name];
+      if (!s) return;
+      s.currentTime = 0;
+      s.play().catch(() => {});
+    }
+
+    function toInputStep() {
+      stepStart.classList.add('hidden');
+      stepLoading.classList.add('hidden');
+      stepInput.classList.remove('hidden');
+      resultOverlay.classList.add('hidden');
+      shareStatus.textContent = '';
+      requestAnimationFrame(() => wishInput.focus());
+    }
+
+    function toLoadingStep() {
+      stepInput.classList.add('hidden');
+      stepStart.classList.add('hidden');
+      stepLoading.classList.remove('hidden');
+    }
+
+    function showResult(data) {
+      resultWord.textContent = (data.word || FALLBACK_RESULT.word).toUpperCase();
+      resultMeaning.textContent = data.meaning || FALLBACK_RESULT.meaning;
+      stepLoading.classList.add('hidden');
+      resultOverlay.classList.remove('hidden');
+      playSound('success');
+    }
+
+    async function callGeminiAPI(wish) {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+      const systemPrompt = `You are a funny, Gen Z Pixel Calligraphy Master.\nFrom the user's wish:\n1) Choose ONE powerful Vietnamese or Sino-Vietnamese word.\n2) Write ONE short rhyming fortune sentence under 20 words.\nReturn ONLY JSON:\n{ "word": "...", "meaning": "..." }`;
+
+      if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_KEY_HERE') {
+        throw new Error('Missing Gemini API key');
+      }
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: `Wish: ${wish}` }] }],
+          systemInstruction: { role: 'system', parts: [{ text: systemPrompt }] },
+          generationConfig: { temperature: 0.9, maxOutputTokens: 120 }
+        })
+      });
+
+      if (!res.ok) throw new Error(`Gemini error ${res.status}`);
+      const payload = await res.json();
+      const rawText = payload?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+
+      const clean = rawText.replace(/```json|```/g, '').trim();
+      const parsed = JSON.parse(clean);
+      return {
+        word: String(parsed.word || '').trim() || FALLBACK_RESULT.word,
+        meaning: String(parsed.meaning || '').trim() || FALLBACK_RESULT.meaning
+      };
+    }
+
+    function createShareImageDataUrl(word, meaning) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 720;
+      canvas.height = 420;
+      const ctx = canvas.getContext('2d');
+
+      ctx.fillStyle = '#24130b';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#91311f';
+      ctx.fillRect(16, 16, canvas.width - 32, canvas.height - 32);
+
+      ctx.fillStyle = '#f4cb69';
+      ctx.fillRect(30, 30, canvas.width - 60, canvas.height - 60);
+
+      ctx.fillStyle = '#38180d';
+      ctx.fillRect(38, 38, canvas.width - 76, canvas.height - 76);
+
+      ctx.fillStyle = '#fce9b2';
+      ctx.font = 'bold 96px "Dancing Script", serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(word.toUpperCase(), canvas.width / 2, 190);
+
+      ctx.font = '36px "VT323", monospace';
+      wrapText(ctx, meaning, canvas.width / 2, 255, 600, 44);
+
+      ctx.font = '28px "VT323", monospace';
+      ctx.fillStyle = '#f4cb69';
+      ctx.fillText('TIỆM CHỮ PIXEL 2026', canvas.width / 2, 360);
+
+      return canvas.toDataURL('image/png');
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let offsetY = 0;
+      for (let n = 0; n < words.length; n++) {
+        const test = line + words[n] + ' ';
+        const width = ctx.measureText(test).width;
+        if (width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), x, y + offsetY);
+          line = words[n] + ' ';
+          offsetY += lineHeight;
+        } else {
+          line = test;
+        }
+      }
+      ctx.fillText(line.trim(), x, y + offsetY);
+    }
+
+    async function shareResult() {
+      const word = resultWord.textContent.trim();
+      const meaning = resultMeaning.textContent.trim();
+      const dataUrl = createShareImageDataUrl(word, meaning);
+      const fileName = `tiem-chu-pixel-${Date.now()}.png`;
+      shareStatus.textContent = '';
+
+      try {
+        const blob = await (await fetch(dataUrl)).blob();
+
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          shareStatus.textContent = 'Đã copy ảnh vào clipboard!';
+          return;
+        }
+
+        const tweetText = encodeURIComponent(`${word} — ${meaning} | TIỆM CHỮ PIXEL 2026`);
+        window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, '_blank', 'noopener');
+
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = fileName;
+        a.textContent = 'Tải ảnh Lucky Card';
+        a.style.color = '#ffe7a8';
+        a.style.display = 'inline-block';
+        a.style.marginTop = '0.5rem';
+
+        shareStatus.innerHTML = 'Không copy trực tiếp được trên thiết bị này.';
+        shareStatus.appendChild(document.createElement('br'));
+        shareStatus.appendChild(a);
+      } catch {
+        shareStatus.textContent = 'Chia sẻ lỗi nhẹ. Bạn thử lại nhé!';
+      }
+    }
+
+    // ===== Event wiring =====
+    document.getElementById('btnXinChu').addEventListener('click', () => {
+      playSound('click');
+      playSound('xinchu');
+      toInputStep();
     });
 
-    // Data for 30 days with content as provided
-    const daysData = [
-      {
-        day: 1,
-        title: 'The Awakening Duet',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Cùng quay phim về bản thân "first day of our new life" ( call cho nhau và record màn hình lại những lúc như (routine buổi sáng - làm việc - ăn uống - workout ) ngoài những lúc đó ra thì mình sẽ quay 1 mình. Mình có thể ghép source lại của nhau vdu như vid tỉ lệ khung hình là 16:9 thì mình sẽ chia nửa cái màn hình đó ra nửa bên trái của em nửa bên phải của anh một vài scene, Giới thiệu về challenge Viết chung manifest Sync alarm: cùng dậy sớm, gửi nhau ảnh sunrise đầu tiên cho nhau rồi daily life.',
-      },
-      {
-        day: 2,
-        title: 'Mindful Moments - Khoảnh khắc chánh niệm',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Cùng thử 10-minute meditation app (Headspace/Calm) Share feelings afterwards - không judgment Evening reflection: "What did you notice about your mind today?" Share screen meditation/yoga session Cùng thử skincare routine do người kia suggest',
-      },
-      {
-        day: 3,
-        title: 'Style Sync Revolution - Cách mạng phong cách đồng bộ',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Chọn theme color/style cho nhau Video call fashion show: thử đồ theo gợi ý của người yêu Tạo couple mood board cho style mới',
-      },
-      {
-        day: 4,
-        title: 'Skill Swap Session - Trao đổi kỹ năng',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Teach practical skills: Excel tricks, Photoshop basics, cooking tips 30-minute focused learning session qua screen share Homework: practice và report back tomorrow',
-      },
-      {
-        day: 5,
-        title: 'Book Club for Two - Câu lạc bộ sách hai người',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Choose 1 article/short story to read together Video call discussion: insights, favorite quotes, disagreements Rate và recommend books to each other',
-      },
-      {
-        day: 6,
-        title: 'Sweat Together - Đổ mồ hôi cùng nhau',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Cùng workout qua video call, tạo playlist chung Partner motivation: đếm số cho nhau, cheer up Post-workout selfie together qua screenshot',
-      },
-      {
-        day: 7,
-        title: 'Wellnessday',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Research và try 1 wellness trend: stretching, breathing techniques Share health tips you\'ve learned Plan healthy meal prep together',
-      },
-      {
-        day: 8,
-        title: 'Weekly Synthesis - Tổng hợp tuần',
-        phase: 'PHASE I: FOUNDATION BUILDING.',
-        content:
-          'Review what you learned about each other Identify 3 things you want to explore deeper Plan learning goals for next week Cùng edit video montage tuần 1 trên CapCut/Canva Share screen: cùng chọn nhạc, transition, effect Premiere night: cùng xem tác phẩm chung và react',
-      },
-      {
-        day: 9,
-        title: 'Financial Literacy Date - Hẹn hò học tài chính',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Share 1 money management tip/app you use Discuss financial goals (không pressure, chỉ sharing) Try budgeting app together or investment basics',
-      },
-      {
-        day: 10,
-        title: 'Love Language Live - Ngôn ngữ tình yêu trực tiếp',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Mỗi người demonstrate love language cho nhau qua video Real-time reaction: người nhận express cảm xúc Create "love menu": list cách thể hiện yêu thương',
-      },
-      {
-        day: 11,
-        title: 'Dream Architects Meeting - Cuộc họp kiến trúc sư giấc mơ',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Video call planning session: vẽ vision board cho couple goals Share screen trên Miro/Figma: cùng design future Vote và negotiate: chọn top 10 goals ưu tiên',
-      },
-      {
-        day: 12,
-        title: 'Productivity Partners - Đối tác năng suất',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Co-working session: work/study together qua video Share productivity techniques: Pomodoro, time-blocking End-of-day check-in: "What felt most satisfying today?"',
-      },
-      {
-        day: 13,
-        title: 'Professor & Student - Thầy và trò',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Mỗi người làm "professor" dạy về passion của mình Q&A session: student hỏi, professor answer Role switch: đổi vai trong cùng một call',
-      },
-      {
-        day: 14,
-        title: 'Cultural Exchange - Trao đổi văn hóa QB - HUẾ',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Share 1 cultural tradition/holiday from your background Từ điển tiếng QB - HUẾ Discuss: "What traditions do you want to keep/create?"',
-      },
-      {
-        day: 15,
-        title: 'Tech Exploration - Khám phá công nghệ',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Explore 1 new app/tool together Set up shared workspace or project Challenge: Hướng dẫn mọi người dùng app hoặc tools đó.',
-      },
-      {
-        day: 16,
-        title: 'Transformation Reveal - Công bố biến đổi',
-        phase: 'PHASE II: INTELLECTUAL INTIMACY',
-        content:
-          'Video call reveal: show off changes sau 16 ngày Partner reaction recording: genuine surprise và praise Together planning: next phase goals',
-      },
-      {
-        day: 17,
-        title: 'Business Brainstorm - Động não kinh doanh',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Brainstorm business/side hustle ideas Market research together: validate ideas online Create simple business plan for fun idea rùi trình bày cho đối phương',
-      },
-      {
-        day: 18,
-        title: 'Content Creation 101 - Tạo nội dung cơ bản',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Learn basic video editing together (CapCut/InShot) Create mini tutorial về skill you\'re good at Give each other feedback và editing tips',
-      },
-      {
-        day: 19,
-        title: 'Creative Writing - Viết sáng tạo',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Write short story/poem (không sến, more like literary) Share and give constructive feedback Discuss favorite authors và writing styles',
-      },
-      {
-        day: 20,
-        title: 'Design Thinking - Tư duy thiết kế',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Learn UX/UI basics through online course Redesign each other\'s social media profiles Create aesthetic mood board for personal brand',
-      },
-      {
-        day: 21,
-        title: 'Take a certificate course on Hotspot and finish it in a week.',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content: '',
-      },
-      {
-        day: 22,
-        title: 'Choreographed Connection - Kết nối biên đạo',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Learn same dance routine, practice qua video call Sync performance: count together, dance "together" Create TikTok-style split screen dance video',
-      },
-      {
-        day: 23,
-        title: 'Co-screenwriters - Đồng biên kịch',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Video call brainstorm: write your love story script together Assign roles, rehearse scenes Film trailer for "your movie" with both perspectives',
-      },
-      {
-        day: 24,
-        title: 'Show & Tell - Trình bày và chia sẻ',
-        phase: 'PHASE III: CREATIVE COLLABORATION',
-        content:
-          'Mỗi người present 1 skill đã học được trong tuần Partner give feedback và ask questions Cùng plan skill nào muốn develop tiếp',
-      },
-      {
-        day: 25,
-        title: 'Future Us Visualization - Hình dung chúng ta tương lai',
-        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
-        content:
-          'Cùng imagine cuộc sống 2 năm nữa (realistic goals) Share 3 things muốn experience cùng nhau Learn: Goal-setting techniques và vision boarding',
-      },
-      {
-        day: 26,
-        title: 'Love Languages Upgrade - Nâng cấp ngôn ngữ tình yêu',
-        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
-        content:
-          'Retake love language test, compare với kết quả cũ Practice expressing love theo cách partner cần Learn: Active listening techniques',
-      },
-      {
-        day: 27,
-        title: 'Appreciation Audit - Kiểm tra sự trân trọng',
-        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
-        content:
-          'List 10 điều appreciate về nhau (không cliché) Share why these qualities matter to you Learn: Mindfulness techniques để notice good things',
-      },
-      {
-        day: 28,
-        title: 'Adventure Planning - Lên kế hoạch phiêu lưu',
-        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
-        content:
-          'Plan 3 things để làm khi gặp nhau lần tới Research places/activities neither has tried Learn: Travel planning tools và budgeting',
-      },
-      {
-        day: 29,
-        title: 'Gratitude & Growth - Biết ơn và phát triển',
-        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
-        content:
-          'Share what you\'ve learned about each other Express gratitude cho 28 ngày journey Plan next month\'s couple goals',
-      },
-      {
-        day: 30,
-        title: 'Highlight Reel - Reel nổi bật',
-        phase: 'WEEK 4: RELATIONSHIP REKINDLING (Ngày 22-28)',
-        content:
-          'Create short video montage của 30 ngày Include funniest moments và biggest breakthroughs Watch together và laugh about the journey',
-      },
-    ];
+    document.getElementById('btnSend').addEventListener('click', async () => {
+      playSound('click');
+      const wish = wishInput.value.trim();
+      if (!wish) {
+        shareStatus.textContent = '';
+        wishInput.focus();
+        return;
+      }
 
-    // Load progress from localStorage or initialize
-    let progress = JSON.parse(localStorage.getItem('coupleChallengeProgress')) || {};
+      toLoadingStep();
 
-    // Elements
-    const daysContainer = document.getElementById('days-container');
-    const progressBar = document.getElementById('progress-bar');
-    const progressText = document.getElementById('progress-text');
+      try {
+        const result = await callGeminiAPI(wish);
+        showResult(result);
+      } catch {
+        showResult(FALLBACK_RESULT);
+      }
+    });
 
-    // Create day cards
-    function createDayCard(dayObj) {
-      const card = document.createElement('div');
-      card.className =
-        'bg-white rounded-xl shadow-md p-5 cursor-pointer transform transition-transform hover:scale-[1.03] focus:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-pink-300';
+    wishInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('btnSend').click();
+    });
 
-      // Header with day number, phase, and heart icon
-      const header = document.createElement('div');
-      header.className = 'flex items-center justify-between mb-3';
+    document.getElementById('btnRetry').addEventListener('click', () => {
+      playSound('click');
+      wishInput.value = '';
+      toInputStep();
+    });
 
-      const dayTitle = document.createElement('h3');
-      dayTitle.className = 'text-xl font-semibold text-pink-700 select-none';
-      dayTitle.textContent = `Day ${dayObj.day}: ${dayObj.title}`;
-
-      const heartIcon = document.createElement('i');
-      heartIcon.className = 'fas fa-heart text-pink-500 text-lg animate-pulse select-none';
-      heartIcon.setAttribute('aria-hidden', 'true');
-
-      header.appendChild(dayTitle);
-      header.appendChild(heartIcon);
-
-      // Phase label
-      const phaseLabel = document.createElement('p');
-      phaseLabel.className =
-        'text-sm text-pink-400 font-semibold mb-3 select-none italic border-b border-pink-200 pb-1';
-      phaseLabel.textContent = dayObj.phase;
-
-      // Content container (hidden by default)
-      const contentContainer = document.createElement('div');
-      contentContainer.className = 'text-pink-700 text-sm leading-relaxed max-h-0 overflow-hidden transition-all duration-500 ease-in-out';
-      contentContainer.setAttribute('aria-hidden', 'true');
-      contentContainer.innerText = dayObj.content;
-
-      // Checkbox container
-      const checkboxContainer = document.createElement('label');
-      checkboxContainer.className =
-        'flex items-center space-x-3 mt-4 cursor-pointer select-none';
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.className =
-        'w-5 h-5 rounded border-pink-300 text-pink-600 focus:ring-pink-500';
-      checkbox.setAttribute('aria-label', `Mark Day ${dayObj.day} as completed`);
-
-      // Set checkbox state from progress
-      checkbox.checked = !!progress[dayObj.day];
-
-      const checkboxText = document.createElement('span');
-      checkboxText.className = 'text-pink-700 font-medium';
-      checkboxText.textContent = 'Completed';
-
-      checkboxContainer.appendChild(checkbox);
-      checkboxContainer.appendChild(checkboxText);
-
-      // Toggle content on card click except checkbox
-      card.addEventListener('click', (e) => {
-        if (e.target === checkbox) return; // Ignore clicks on checkbox
-        const isExpanded = contentContainer.style.maxHeight && contentContainer.style.maxHeight !== '0px';
-        if (isExpanded) {
-          contentContainer.style.maxHeight = '0px';
-          contentContainer.setAttribute('aria-hidden', 'true');
-          card.setAttribute('aria-expanded', 'false');
-        } else {
-          contentContainer.style.maxHeight = contentContainer.scrollHeight + 'px';
-          contentContainer.setAttribute('aria-hidden', 'false');
-          card.setAttribute('aria-expanded', 'true');
-          // Scroll card into view smoothly on expand
-          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      });
-
-      // Checkbox change event
-      checkbox.addEventListener('change', (e) => {
-        progress[dayObj.day] = e.target.checked;
-        localStorage.setItem('coupleChallengeProgress', JSON.stringify(progress));
-        updateProgressBar();
-      });
-
-      card.appendChild(header);
-      card.appendChild(phaseLabel);
-      card.appendChild(contentContainer);
-      card.appendChild(checkboxContainer);
-
-      // Accessibility
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'button');
-      card.setAttribute('aria-expanded', 'false');
-      card.setAttribute('aria-label', `Day ${dayObj.day}: ${dayObj.title}. Click to expand or collapse details.`);
-
-      // Keyboard accessibility for expand/collapse
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
-      });
-
-      return card;
-    }
-
-    // Render all day cards
-    function renderDays() {
-      daysContainer.innerHTML = '';
-      daysData.forEach((day) => {
-        const card = createDayCard(day);
-        daysContainer.appendChild(card);
-      });
-    }
-
-    // Update progress bar and text
-    function updateProgressBar() {
-      const total = daysData.length;
-      const completed = Object.values(progress).filter(Boolean).length;
-      const percent = Math.round((completed / total) * 100);
-      progressBar.style.width = percent + '%';
-      progressBar.setAttribute('aria-valuenow', percent);
-      progressText.textContent = `${percent}% Completed`;
-    }
-
-    // Initialize
-    renderDays();
-    updateProgressBar();
+    document.getElementById('btnShare').addEventListener('click', () => {
+      playSound('click');
+      shareResult();
+    });
   </script>
- </body>
+</body>
 </html>
